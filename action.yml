@@ -1,0 +1,16 @@
+name: 'sync with simplifier'
+description: 'Syncs changed files with simplifier'
+inputs:
+  api_endpoint:
+    description: 'The api_endpoint to be pushed to.'
+    required: true
+  access_token:
+    description: 'access_token needed to interact with the API'
+    required: false
+  directories:
+    description: 'Directories to sync'
+    required: true
+    default: []
+  runs:
+    using: 'node12'
+    main: index.js
