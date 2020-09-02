@@ -1,16 +1,18 @@
-name: 'sync with simplifier'
-description: 'Syncs changed files with simplifier'
+name: "sync with simplifier"
+description: "Syncs changed files with simplifier"
 inputs:
-  api_endpoint:
-    description: 'The api_endpoint to be pushed to.'
-    required: true
-  access_token:
-    description: 'access_token needed to interact with the API'
+  project_name:
+    description: "The api_endpoint to be pushed to."
     required: false
-  directories:
-    description: 'Directories to sync'
+  simplifier_email:
+    description: "email needed to interact with the simplifier API"
     required: true
-    default: []
-  runs:
-    using: 'node12'
-    main: index.js
+  simplifier_password:
+    description: "password needed to interact with the simplifier API"
+    required: true
+  directories:
+    description: "Directories to sync"
+    required: true
+runs:
+  using: "node12"
+  main: index.js
