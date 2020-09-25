@@ -20,13 +20,16 @@ const SIMPLIFIER_PASSWORD = core.getInput("simplifier_password");
 function fetchAccessToken(email, password) {
   return fetch(TOKEN_URL, {
     method: "POST",
-    body: {
+    body: JSON.stringify({
       Email: email,
       Password: password,
+    }),
+    headers: {
+      "Content-Type": "application/json",
     },
-  }).then(res => {
-    return res.body.token
-  });
+  })
+    .then((res) => res.json())
+    .then((res) => res.token);
 }
 
 async function execute() {
@@ -49,11 +52,17 @@ async function execute() {
         return fetch(API_URL, options);
       })
       .then((res) => {
-        console.log(
-          `Success, ${DIRECTORIES.toString()} have been uploaded to ${PROJECT_NAME}`
-        );
-      })
-
+        switch (res.status) {
+          case 200:
+            console.log(
+              `Success, ${DIRECTORIES.toString()} have been uploaded to ${PROJECT_NAME}`
+            );
+            break;
+          default:
+            core.setFailed(res.statusText);
+            break;
+        }
+      });
   } catch (error) {
     core.setFailed(error.message);
   }
